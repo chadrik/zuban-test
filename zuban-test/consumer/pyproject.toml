@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "consumer"
+version = "0.1.0"
+description = "A consumer that uses the http-client package"
+requires-python = ">=3.8"
+dependencies = [
+    "http-client",
+]
+
+[tool.uv.sources]
+http-client = { workspace = true }
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/consumer"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = "http_client"
+ignore_missing_imports = true
